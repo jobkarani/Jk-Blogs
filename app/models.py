@@ -7,7 +7,7 @@ from . import login_manager
 
 
 class User(UserMixin, db.Model):
-    
+
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -45,3 +45,25 @@ class User(UserMixin, db.Model):
     
     def __repr__(self):
         return f'Username {self.username}'
+
+
+class BlogPost(db.Model):
+
+    users = db.relationship(User)
+
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+
+    date =db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
+    title = db.Column(db.String(255),nullable=False)
+    text = db.Column(db.String,nullable=False)
+
+
+    def __init__(self,title,text,user_id):
+        self.title = title
+        self.text =text
+        self.user_id =user_id
+
+
+    def __repr__(self):
+        return f"Post ID: {self.id} --Title: {self.date} --Date: {self.date}"
