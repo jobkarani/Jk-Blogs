@@ -2,9 +2,9 @@ from flask import render_template, redirect, url_for, abort, flash, request
 from . import main
 from flask_login import login_required, current_user,login_user,logout_user
 
-from app.models import User, BlogPost
+from app.models import User, BlogPost,Comment
 from .. import db
-from .forms import UpdateUserForm,LoginForm,RegistrationForm
+from .forms import UpdateUserForm,LoginForm,RegistrationForm,PostForm,CommentForm
 from .picture_handler import add_profile_pic
 
 @main.route('/')
@@ -96,6 +96,21 @@ def user_posts(username):
     blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page,per_page=5)
     return render_template('user_blogposts.html',blog_posts=blog_posts,user=user)
 
+@main.route('/addpost',methods = ['GET', 'POST'])
+@login_required
+def addposts():
+    form = PostForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        post = form.post.data
+        user_id = current_user
+        new_blog_object = Post(title=title,content=post)
+        new_blog_object.save_post()
+        return redirect(url_for('main.addposts'))
+        
+
+    title = 'Add-Post -  Welcome to PitchDom'
+    return render_template('addpost.html', title=title, post_form=form)
 
 @main.route('/comment', methods=['GET', 'POST'])
 @login_required
