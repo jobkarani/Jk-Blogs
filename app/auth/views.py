@@ -8,7 +8,7 @@ from .forms import UpdateUserForm,LoginForm,RegistrationForm
 from .picture_handler import add_profile_pic
 
 #register
-@main.route('/register',methods = ['GET','POST'])
+@auth.route('/register',methods = ['GET','POST'])
 def register():
     form = RegistrationForm()
 
@@ -19,14 +19,38 @@ def register():
         db.session.commit()
         flash('Thanks for registering!!')
         return redirect(url_for('users.login'))
-    return render_template('register.html',form=form)
+    return render_template('register.html',form=form, email=email, username=username, password=password)
 
 
 
 #login
+@auth.route('/login',methods=['Get','POST'])
+def login():
+
+    form = LoginForm()
+    if form.validate_on_submit():
+
+    user = User.query.filter_by(email=form.email.data).first()
+
+    if user.check_password_hash(form.password.data) and user is not None:
+
+        login_user(user)
+        flash('Log in was Successful!')
+        
+        next = request.args.get('next')
+
+        if next ==None or not next[0] == '/':
+            next = url_for('index')
+            # next = url_for('core.index')
+
+        return redirect(next)
+
+    return render_template('login.html',form=form)
+
+
 
 #logout
-@main.route('/logout')
+@auth.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for("index"))
