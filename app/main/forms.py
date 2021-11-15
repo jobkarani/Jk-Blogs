@@ -4,6 +4,7 @@ from wtforms.fields.simple import TextAreaField
 from wtforms.validators import Required, Email, Length, EqualTo
 from wtforms import ValidationError
 from flask_wtf.file import FileField,FileAllowed
+from wtforms.validators import Required
 
 from ..models import User
 from flask_login import current_user

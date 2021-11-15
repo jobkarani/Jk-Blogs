@@ -101,16 +101,56 @@ def user_posts(username):
 def addposts():
     form = PostForm()
     if form.validate_on_submit():
-        title = form.title.data
-        post = form.post.data
-        user_id = current_user
-        new_blog_object = Post(title=title,content=post)
-        new_blog_object.save_post()
-        return redirect(url_for('main.addposts'))
-        
+        blog_post = BlogPost(title=form.title.data, text=form.text.data, user_id=current_user.id)
 
-    title = 'Add-Post -  Welcome to PitchDom'
+        db.session.add(blog_post)
+        db.session.commit()
+        flash('Blog Post Created')
+        return redirect(url_for('main.index'))
+
     return render_template('addpost.html', title=title, post_form=form)
+
+@main.route('/<int:blog_post_id>')
+def blog_post(blog_post_id):
+    blog_post = BlogPost.query.get_or_404(blog_post_id)
+    return render_template('blog_post.html', title=blog_post.title,date=blog_post,post=blog_post)
+
+@main.route('/<int:blog_post_id/update>',methods=['GET','POST'])
+@login_required
+def update(blog_post_id):
+    blog_post=BlogPost.query.get_or_404(blog_post_id)
+    if blog_post.author != current_user:
+        abort(403)
+
+    form = PostForm()
+
+      if form.validate_on_submit():
+        blog_post.title = form.title.data
+        blog_post.post = form.post.data
+
+        db.session.commit()
+        flash('Blog Post Updated')
+        return redirect(url_for('blog_posts.blog_post',blog_post_id=blog_post.id))
+
+        elif request.method = 'GET':
+            form.title.data = blog_post.title
+            form.post.data = blog_post.post
+
+
+        return render_template('create_post.html',title = 'Updating',form=form)
+
+@main.route('/<int:blog_post_id/delete>',methods=['GET','POST'])
+@login_required
+def delete_post(blog_post_id):
+    blog_post=BlogPost.query.get_or_404(blog_post_id)
+    if blog_post.author != current_user:
+        abort(403)
+
+    db.session.delete(blog_post)
+    db.session.commit()
+    flash('Blog post Deleted')
+    return redirect(url_for('main.index'))
+
 
 @main.route('/comment', methods=['GET', 'POST'])
 @login_required
