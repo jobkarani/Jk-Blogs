@@ -2,10 +2,18 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
     <form method="POST">
-        {{form.hidden_tag}}
-        {{form.email.label(class="form-label")}}{{form.email(class="form-control")}} <br>
-        {{form.password.label(class="form-label")}}{{form.password(class="form-control")} <br>
-        {{form.submit()(class="btn btn-primary mb-3")}} 
+        {{form.hidden_tag()}}
+        <div class="form_group">
+            {{form.email.label(class="form-label")}}{{form.email(class="form-control")}} <br>
+        </div>
+
+        <div class="form_group">
+            {{form.password.label(class="form-label")}}{{form.password(class="form-control")} <br>
+        </div>
+
+        <div class="form_group">
+            {{form.submit(class="btn btn-primary mb-3")}} 
+        </div>
 
     </form>
 

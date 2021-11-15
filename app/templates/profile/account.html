@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% block content %}
+   <div class="jumbotron">
+       <div class-align='center'>
+         <h1>Welcome to {{current_user.username}}'s page.</h1>
+         <img class-align='center' src="{{url_for('static',filename='profile_pics/'+current_user.profile_pic)}}" alt="">
+       </div>
+   </div>
+
+   <div class="container">
+    <form method="POST" >
+        {{form.hidden_tag()}}
+        <div class="form_group">
+            {{form.username.label(class="form-label")}}{{form.username(class="form-control")}} <br>
+        </div>
+
+        <div class="form_group">
+            {{form.email.label(class="form-label")}}{{form.email(class="form-control")}} <br>
+        </div>
+
+        <div class="form_group">
+            {{form.picture.label(class="form-label")}}{{form.picture(class="form-control")}} <br>
+        </div>
+
+        <div class="form_group">
+            {{form.submit(class="btn btn-primary mb-3")}} 
+        </div>
+
+    </form>
+   </div>
+
+{% endblock%}
