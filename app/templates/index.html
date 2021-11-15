@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 lh-lg">
+            <h1 class="text-info">WELCOME TO JK-BLOGS</h1>
+            <p class="fw-bolder">If you only had one minute to impress someone, what would you do ?</p>
+            <p>It may seem as an easy task but having 60 seconds to impress someone can be a hard task.
+            </p>
+            <p>You don't need to worry no more, you know why?</p>
+            <p><b>Because here at Pitchdom we have you covered for that!!!</b></p>
+            <a href="{{url_for('main.register')}}" class="btn btn-outline-primary mt-4">Create Account</a>
+        </div>
+       
+    </div>
+
+    <!-- Services -->
+    <div class="row mt-5">
+        <hr>
+        <div class="col-md-4 mt-4">
+            <div class="card h-100" style="width: 18rem;">
+                <div class="card-body">
+                    <p class="card-title"><b>Let us expose your ideas to the world</b></p>
+                    <p class="card-text">Create your own pitches and post them to see how the others will react to them.
+                        The better the pitch the more likes you get.
+                    </p>
+                    <a href="{{url_for('main.addposts')}}" class="btn btn-outline-primary">Create a pitch</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-4">
+            <div class="card h-100" style="width: 18rem;">
+                <div class="card-body">
+                    <p class="card-title"><b> Let us help you develop better pitching.</b></p>
+                    <p class="card-text">Since you will have a chance to view other peoples pitches, this will be a
+                        great environment for you to learn more from others.
+                    </p>
+                    <a href="{{url_for('main.login')}}" class="btn btn-outline-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="row mt-5">
+        <hr>
+        <div class="col-md-12">
+            <footer>
+                <p style="text-align: center"> Copyright &copy;
+                    <script>document.write(new Date().getFullYear())</script> Pitches All Rights Reserved
+                </p>
+            </footer>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

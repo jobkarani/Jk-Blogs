@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-8 pitch-form">
+            <h2>Create a Blog</h2>
+            {{wtf.quick_form(post_form)}}
+        </div>
+    </div>
+</div>
+
+{% endblock%}
