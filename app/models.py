@@ -67,3 +67,27 @@ class BlogPost(db.Model):
 
     def __repr__(self):
         return f"Post ID: {self.id} --Title: {self.date} --Date: {self.date}"
+
+
+class Comment(db.Model):
+    tablename = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String(255))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
+    
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls, blog_id):
+        comments = Comment.query.filter_by(blog_id=blog_id).all()
+        return comments
+
+    @classmethod
+    def get_comment_author(cls, user_id):
+        author = User.query.filter_by(id=user_id).first()
+
+        return author
