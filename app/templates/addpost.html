@@ -4,12 +4,23 @@
 
 {% block content %}
 <div class="container">
-    <div class="row mt-5">
-        <div class="col-md-8 pitch-form">
-            <h2>Create a Blog</h2>
-            {{wtf.quick_form(post_form)}}
+    <form class='form-group' method="POST">
+        {{form.hidden_tag()}}
+        <div class="form_group">
+            {{form.title.label(class="form-control-label")}}
+            {{form.title(class="form-control form-control-lg")}} 
         </div>
-    </div>
+
+        <div class="form_group">
+            {{form.post.label(class="form-control-label")}}
+            {{form.post(class="form-control form-control-lg")} 
+        </div>
+
+        <div class="form_group">
+            {{form.submit(class="btn btn-outline-info")}} 
+        </div>
+
+    </form>
 </div>
 
 {% endblock%}

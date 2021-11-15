@@ -10,9 +10,10 @@ from .picture_handler import add_profile_pic
 
 @main.route('/')
 def index():
-    posts = BlogPost.query.order_by(BlogPost.id).all()
-    print(posts)
-    return render_template('index.html', posts=posts)
+    
+    page = request.args.get('page',1,type=int)
+    blog_posts = BlogPost.query.order_by(BlogPost.date.desc()).paginate(page=page,per_page=4)
+    return render_template('index.html', blog_posts=blog_posts)
 
 
 #register
@@ -32,30 +33,19 @@ def register():
 
 
 #login
-@main.route('/login',methods=['Get','POST'])
+@main.route('/login',methods=['GET','POST'])
 def login():
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        user = User.query.filter_by(email = login_form.email.data).first()
+        if user is not None and user.verify_password(login_form.password.data):
+            login_user(user)
+            return redirect(request.args.get('next') or url_for('main.index',username=current_user.username))
 
-    form = LoginForm()
-    if form.validate_on_submit():
+        flash('Invalid username or Password')
 
-        user = User.query.filter_by(email=form.email.data).first()
-
-    if user.check_password_hash(form.password.data) and user is not None:
-
-        login_user(user)
-        flash('Log in was Successful!')
-        
-        next = request.args.get('next')
-
-        if next ==None or not next[0] == '/':
-            next = url_for('main.index')
-            # next = url_for('core.index')
-
-        return redirect(next)
-
-    return render_template('login.html',form=form, email=email, password=password)
-
-
+    title = "PitchDom login"
+    return render_template('main/login.html',title=title,form=login_form)
 
 #logout
 @main.route('/logout')
@@ -88,7 +78,7 @@ def account():
         form.email.data = current_user.email
 
     profile_pic = url_for('static',filename='profile_pics/'+current_user.profile_pic)
-    return render_template('account.html',profile_pic=profile_pic,form=form)
+    return render_template('profile/account.html',profile_pic=profile_pic,form=form)
 
 @main.route("/<username>")
 def user_posts(username):
@@ -116,7 +106,7 @@ def blog_post(blog_post_id):
     blog_post = BlogPost.query.get_or_404(blog_post_id)
     return render_template('blog_post.html', title=blog_post.title,date=blog_post,post=blog_post)
 
-@main.route('/<int:blog_post_id/update>',methods=['GET','POST'])
+@main.route('/<int:blog_post_id>/update',methods=['GET','POST'])
 @login_required
 def update(blog_post_id):
     blog_post=BlogPost.query.get_or_404(blog_post_id)
@@ -125,7 +115,7 @@ def update(blog_post_id):
 
     form = PostForm()
 
-      if form.validate_on_submit():
+    if form.validate_on_submit():
         blog_post.title = form.title.data
         blog_post.post = form.post.data
 
@@ -133,14 +123,14 @@ def update(blog_post_id):
         flash('Blog Post Updated')
         return redirect(url_for('blog_posts.blog_post',blog_post_id=blog_post.id))
 
-        elif request.method = 'GET':
-            form.title.data = blog_post.title
-            form.post.data = blog_post.post
+    elif request.method  == 'GET':
 
+        form.title.data = blog_post.title
+        form.post.data = blog_post.post
 
-        return render_template('create_post.html',title = 'Updating',form=form)
+    return render_template('create_post.html',title = 'Updating',form=form)
 
-@main.route('/<int:blog_post_id/delete>',methods=['GET','POST'])
+@main.route('/<int:blog_post_id>/delete',methods=['GET','POST'])
 @login_required
 def delete_post(blog_post_id):
     blog_post=BlogPost.query.get_or_404(blog_post_id)
@@ -156,7 +146,7 @@ def delete_post(blog_post_id):
 @main.route('/comment', methods=['GET', 'POST'])
 @login_required
 def add_comment():
-    form = CommentForm()
+    form = CommentsForm()
     if form.validate_on_submit():
         comment = Comment(name=form.name.data)
         db.session.add(comment)
