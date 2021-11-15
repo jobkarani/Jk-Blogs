@@ -4,7 +4,7 @@ from flask_login import login_required, current_user,login_user,logout_user
 
 from app.models import User, BlogPost,Comment
 from .. import db
-from .forms import UpdateUserForm,LoginForm,RegistrationForm,PostForm,CommentForm
+from .forms import UpdateUserForm,LoginForm,RegistrationForm,PostForm,CommentsForm
 from .picture_handler import add_profile_pic
 
 @main.route('/')
@@ -25,8 +25,8 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Thanks for registering!!')
-        return redirect(url_for('users.login'))
-    return render_template('register.html',form=form, email=email, username=username, password=password)
+        return redirect(url_for('main.login'))
+    return render_template('main/register.html',form=form)
 
 
 
@@ -37,7 +37,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
 
-    user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
 
     if user.check_password_hash(form.password.data) and user is not None:
 
@@ -47,12 +47,12 @@ def login():
         next = request.args.get('next')
 
         if next ==None or not next[0] == '/':
-            next = url_for('index')
+            next = url_for('main.index')
             # next = url_for('core.index')
 
         return redirect(next)
 
-return render_template('login.html',form=form, email=email, password=password)
+    return render_template('login.html',form=form, email=email, password=password)
 
 
 
@@ -60,8 +60,8 @@ return render_template('login.html',form=form, email=email, password=password)
 @main.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for("index"))
-    # return redirect(url_for("core.index"))
+    # return redirect(url_for("index"))
+    return redirect(url_for("main.index"))
 
 #account
 @main.route('/account', methods=['GET','POST'])

@@ -9,16 +9,16 @@ from ..models import User
 from flask_login import current_user
 
 class LoginForm(FlaskForm):
-    email =StringField('Email', validators=[DataRequired(),Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email =StringField('Email', validators=[Required(),Email()])
+    password = PasswordField('Password', validators=[Required()])
     submit = SubmitField('Log In')
 
 
 class RegistrationForm(FlaskForm):
-    email =StringField('Email', validators=[DataRequired(),Email()])
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired(),EqualTo('confirm_pass',message='Passwords must match!')])
-    confirm_pass = PasswordField('Confirm Password',validators=[DataRequired()])
+    email =StringField('Email', validators=[Required(),Email()])
+    username = StringField('Username', validators=[Required()])
+    password = PasswordField('Password', validators=[Required(),EqualTo('confirm_pass',message='Passwords must match!')])
+    confirm_pass = PasswordField('Confirm Password',validators=[Required()])
     submit = SubmitField('Register!')
 
     def check_email(self,field):
@@ -35,8 +35,8 @@ class PostForm(FlaskForm):
     submit = SubmitField('Post Blog')
 
 class UpdateUserForm(FlaskForm):
-    email =StringField('Email', validators=[DataRequired(),Email()])
-    username = StringField('Username', validators=[DataRequired()])
+    email =StringField('Email', validators=[Required(),Email()])
+    username = StringField('Username', validators=[Required()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg','png'])])
     submit = SubmitField('Update!')
 

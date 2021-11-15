@@ -49,6 +49,7 @@ class User(UserMixin, db.Model):
 
 class BlogPost(db.Model):
 
+    __tablename__ = 'blogs'
     users = db.relationship(User)
 
     id = db.Column(db.Integer,primary_key=True)
@@ -74,7 +75,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    blog_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blogs.id"))
     
 
     def save_comment(self):

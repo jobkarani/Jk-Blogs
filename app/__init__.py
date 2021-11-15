@@ -14,7 +14,7 @@ simple = SimpleMDE()
 login_manager = LoginManager()
 
 login_manager.session_protection = 'strong'
-login_manager.login_view = 'auth.login'
+login_manager.login_view = 'main.login'
 photos = UploadSet('photos', IMAGES)
 
 
@@ -37,7 +37,7 @@ def create_app(config_name):
 
     # Registering the blueprint
     from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint,url_prefix='/user-account')
+    app.register_blueprint(main_blueprint)
 
     # Registering the auth bluprints
     # from .auth import auth as auth_blueprint
