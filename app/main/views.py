@@ -108,4 +108,18 @@ def add_comment():
         flash('Comment added successfully.')
         return redirect(url_for('.index'))
     return render_template('comments.html', form=form)
+
+@main.route('/comment/<int:id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_comment(id):
+    """
+        View delete comment function that returns the delete comment page and its data
+    """
+    comment = Comment.get_comment(id)
+    # if comment.user_id != current_user:
+    #     abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('You have successfully deleted the comment', 'success')
+    return redirect(url_for('main.account', username=current_user.username))
     
