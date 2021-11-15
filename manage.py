@@ -1,7 +1,8 @@
 from app import create_app, db
 from flask_script import Manager, Server
 from flask_migrate import Migrate, MigrateCommand
-from app.models import User,BlogPost
+from app.models import User,BlogPost, Comment
+
 
 app = create_app('development')
 
@@ -20,7 +21,7 @@ def test():
 
 @manager.shell
 def make_shell_context():
-    return dict(app=app, db=db, User=User, BlogPost=BlogPost )
+    return dict(app=app, db=db, User=User, BlogPost=BlogPost, Comment=Comment )
 
 if __name__ == '__main__':
     manager.run()

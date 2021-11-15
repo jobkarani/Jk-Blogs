@@ -95,4 +95,17 @@ def user_posts(username):
     user = User.query.filter_by(username=username).first_or_404()
     blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page,per_page=5)
     return render_template('user_blogposts.html',blog_posts=blog_posts,user=user)
+
+
+@main.route('/comment', methods=['GET', 'POST'])
+@login_required
+def add_comment():
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(name=form.name.data)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Comment added successfully.')
+        return redirect(url_for('.index'))
+    return render_template('comments.html', form=form)
     

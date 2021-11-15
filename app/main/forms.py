@@ -44,3 +44,6 @@ class UpdateUserForm(FlaskForm):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('Username is already taken!!')
 
+class CommentsForm(FlaskForm):
+    comment = TextAreaField('Comment', validators=[Required()])
+    submit = SubmitField('Comment')
