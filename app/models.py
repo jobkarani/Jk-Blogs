@@ -98,3 +98,12 @@ class Comment(db.Model):
         comment = Comment.query.filter_by(id=id).first()
         db.session.delete(comment)
         db.session.commit()
+
+
+class Quote:
+    """
+    class for quotes consumed from API
+    """
+    def _init_(self, author, quote):
+        self.author = author
+        self.quote = quote

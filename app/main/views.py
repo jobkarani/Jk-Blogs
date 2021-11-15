@@ -2,8 +2,9 @@ from flask import render_template, redirect, url_for, abort, flash, request
 from . import main
 from flask_login import login_required, current_user,login_user,logout_user
 
-from app.models import User, BlogPost,Comment
+from app.models import User, BlogPost,Comment,Quote
 from .. import db
+from ..requests import get_quote
 from .forms import UpdateUserForm,LoginForm,RegistrationForm,PostForm,CommentsForm
 from .picture_handler import add_profile_pic
 
@@ -177,4 +178,14 @@ def delete_comment(id):
     db.session.commit()
     flash('You have successfully deleted the comment', 'success')
     return redirect(url_for('main.account', username=current_user.username))
+
+@main.route('/quotes')
+def quotes():
+
+    '''
+    '''
+    quote = get_quote()
+    title = 'LetsBlog | Quotes'
+    
+    return render_template('index.html', title = title,quote = quote)
     
