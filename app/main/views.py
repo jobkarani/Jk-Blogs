@@ -13,7 +13,7 @@ def index():
     print(posts)
     return render_template('index.html', posts=posts)
 
-    
+
 #register
 @main.route('/register',methods = ['GET','POST'])
 def register():
@@ -89,8 +89,10 @@ def account():
     profile_pic = url_for('static',filename='profile_pics/'+current_user.profile_pic)
     return render_template('account.html',profile_pic=profile_pic,form=form)
 
-
-
-
-
+@main.route("/<username>")
+def user_posts(username):
+    page = request.args.get('page',1,type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page,per_page=5)
+    return render_template('user_blogposts.html',blog_posts=blog_posts,user=user)
     
