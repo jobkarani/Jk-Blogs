@@ -7,6 +7,7 @@ from .. import db
 from .forms import UpdateUserForm,LoginForm,RegistrationForm
 from .picture_handler import add_profile_pic
 
+
 #register
 @auth.route('/register',methods = ['GET','POST'])
 def register():
@@ -56,5 +57,29 @@ def logout():
     return redirect(url_for("index"))
     # return redirect(url_for("core.index"))
 
+#account
+@auth.route('/account', methods=['GET','POST'])
+@login_required
+def account():
 
+    form = UpdateUserForm()
+    if form.validate_on_submit():
+
+        if form.picture.data:
+            username = current_user.username
+            pic = add_profile_pic(form.picture.data,username)
+            current_user.profile_pic = pic
+
+        current_user.username =form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('User account Succefully Updated!')
+        return redirect(url_for('users.account'))
+
+    elif request.method == "GET":
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    profile_pic = url_for('static',filename='profile_pics/'+current_user.profile_pic)
+    return render_template('account.html',profile_pic=profile_pic,form=form)
     
