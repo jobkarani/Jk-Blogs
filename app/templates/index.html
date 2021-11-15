@@ -13,11 +13,11 @@
       {% for post in blog_posts.items %}
         <div class="card">
             <div class="card-body">
-                <h2><a class="card-title" href="{{url_for('blog_posts.blog_post',blog_post_id=post.id)}}">{{post.title}}</a></h2>
-                <a href="{{url_for('users.user_posts',username=post.author.username)}}">Posted By: {{post.author.username}}</a>
+                <h2><a class="card-title" href="{{url_for('main.blog_post',blog_post_id=post.id)}}">{{post.title}}</a></h2>
+                <a href="{{url_for('main.user_posts',username=post.author.username)}}">Posted By: {{post.author.username}}</a>
             
                 <p>Published on: {{post.date.strftime('%d-%m-%y')}}</p>
-                <a class = "btn btn-primary" href="{{url_for('blog_posts.blog_post',blog_post_id=post.id)}}">Read Blog Post</a>
+                <a class = "btn btn-primary" href="{{url_for('main.blog_post',blog_post_id=post.id)}}">Read Blog Post</a>
             </div>
         </div>
       {% endfor %}

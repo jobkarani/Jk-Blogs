@@ -5,12 +5,12 @@
     <div class="jumbotron">
         <div class-align='center'>
           <h1>Welcome to {{user.username}}'s page.</h1>
-          <img class-align='center' src="{{url_for('static',filename='profile_pics/'+user.profile_pic)}}">
+          <img class-align='center' src="{{url_for('static',filename='photos/'+user.profile_pic)}}">
         </div>
     </div>
     {% for post in blog_posts.items %}
-   <h2><a href="{{url_for('blog_posts.blog_post',blog_post_id=post.id)}}">{{post.title}}</a></h2>
-   Posted By: <a href="{{url_for('users.user_post',username=post.author.username)}}">{{post.author.username}}</a>
+   <h2><a href="{{url_for('main.blog_post',blog_post_id=post.id)}}">{{post.title}}</a></h2>
+   Posted By: <a href="{{url_for('main.user_posts',username=post.author.username)}}">{{post.author.username}}</a>
 
    <p class='text-muted'>Posted On: {{post.date.strftime("%d-%m-%Y")}}</p>
    <br>
@@ -23,10 +23,10 @@
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         {% for page_number in blog_posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
-           {% if blog_posts.page == page_num%%}
-            <li class="page-item disabled"><a class="page-link" href="{{url_for('users.userposts',username=user.username,page=page_num)}}">{{page_num}}</a></li>
+           {% if blog_posts.page == page_num%}
+            <li class="page-item disabled"><a class="page-link" href="{{url_for('main.user_posts',username=user.username,page=page_num)}}">{{page_num}}</a></li>
             {% else %}
-            <li class="page-item"><a class="page-link" href="{{url_for('users.userposts',username=user.username,page=page_num)}}">{{page_num}}</a></li>
+            <li class="page-item"><a class="page-link" href="{{url_for('main.user_posts',username=user.username,page=page_num)}}">{{page_num}}</a></li>
            {% endif %}
         {% endfor %}
     </ul>

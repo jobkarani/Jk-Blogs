@@ -11,7 +11,7 @@
 
     {% if post.author == current_user%}
     <div>
-        <a href="{{url_for('blog_posts.update',blog_post_id=post.id)}}">Update</a>
+        <a href="{{url_for('main.update',blog_post_id=post.id)}}">Update</a>
         <button type="button" class="btn btn-danger" data-toggle='modal' data-target="#del_modal">Delete</button>
     {% endif%}
 </div>
@@ -29,7 +29,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
           
-          <form action="{{url_for('blog_posts.delete_post', blog_post_id=post.id)}}" method="POST">
+          <form action="{{url_for('main.delete_post', blog_post_id=post.id)}}" method="POST">
             <input class="btn btn-danger" type="submit" value="Delete">
           </form>
         </div>

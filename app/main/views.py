@@ -1,4 +1,5 @@
 from flask import render_template, redirect, url_for, abort, flash, request
+from requests.api import post
 from . import main
 from flask_login import login_required, current_user,login_user,logout_user
 
@@ -44,7 +45,7 @@ def login():
 
         flash('Invalid username or Password')
 
-    title = "PitchDom login"
+    title = "Jk-Blogs login"
     return render_template('main/login.html',title=title,form=login_form)
 
 #logout
@@ -85,25 +86,26 @@ def user_posts(username):
     page = request.args.get('page',1,type=int)
     user = User.query.filter_by(username=username).first_or_404()
     blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page,per_page=5)
-    return render_template('user_blogposts.html',blog_posts=blog_posts,user=user)
+    return render_template('profile/user_blogposts.html',blog_posts=blog_posts,user=user)
 
 @main.route('/addpost',methods = ['GET', 'POST'])
 @login_required
 def addposts():
     form = PostForm()
     if form.validate_on_submit():
-        blog_post = BlogPost(title=form.title.data, text=form.text.data, user_id=current_user.id)
+        blog_post = BlogPost(title=form.title.data, post=form.post.data, user_id=current_user.id)
 
         db.session.add(blog_post)
         db.session.commit()
         flash('Blog Post Created')
         return redirect(url_for('main.index'))
 
-    return render_template('addpost.html', title=title, post_form=form)
+    return render_template('addpost.html', form=form)
 
 @main.route('/<int:blog_post_id>')
 def blog_post(blog_post_id):
     blog_post = BlogPost.query.get_or_404(blog_post_id)
+    
     return render_template('blog_post.html', title=blog_post.title,date=blog_post,post=blog_post)
 
 @main.route('/<int:blog_post_id>/update',methods=['GET','POST'])
@@ -121,14 +123,14 @@ def update(blog_post_id):
 
         db.session.commit()
         flash('Blog Post Updated')
-        return redirect(url_for('blog_posts.blog_post',blog_post_id=blog_post.id))
+        return redirect(url_for('main.blog_post',blog_post_id=blog_post.id))
 
     elif request.method  == 'GET':
 
         form.title.data = blog_post.title
         form.post.data = blog_post.post
 
-    return render_template('create_post.html',title = 'Updating',form=form)
+    return render_template('addpost.html',title = 'Updating',form=form)
 
 @main.route('/<int:blog_post_id>/delete',methods=['GET','POST'])
 @login_required
