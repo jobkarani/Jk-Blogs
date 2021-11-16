@@ -5,7 +5,7 @@
 ## Author **Job Karani**
 
 ## Description
-
+This is a blogging website whereby a user can view blog posts, create their own accounts and post their own blog posts. It also displays some random inspirational quotes on the landing page.
 
 ## Known Bugs
 There are no bugs as of now :)
