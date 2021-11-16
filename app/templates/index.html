@@ -17,26 +17,24 @@
       </div>
   </div>
 
-  {% for post in blog_posts.items %}
+  <!-- {% for post in blog_posts.items %}
   <div class="container" >
     <div class="row">
         <div class="col-md-4">
             <div class="card" style="text-decoration: none;  background: chartreuse; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);" >
-                <h2><a href="{{url_for('main.blog_post',blog_post_id=post.id)}}">{{post.title | capitalize}}</a></h2>
-                Posted By: <a href="{{url_for('main.user_posts',username=post.author.username)}}">{{post.author.username | capitalize}}</a>
-              
-                <p class='text-muted'>Posted On: {{post.date.strftime("%d-%m-%Y")}}</p>
-                <br>
-                <p>{{post.text}}</p>
-                <br>
+                <h2><a class="card-title" href="{{url_for('main.blog_post',blog_post_id=post.id)}}">{{post.title | capitalize}}</a></h2>
+                <a href="{{url_for('main.user_posts',username=post.author.username)}}">Posted By: {{post.author.username | capitalize}}</a>
+            
+                <p>Published on: {{post.date.strftime('%d-%m-%y')}}</p>
+                <a class = "btn btn-primary" href="{{url_for('main.blog_post',blog_post_id=post.id)}}">Read Blog Post</a>
             </div>
             </div>
     </div>
   </div>
  
-{% endfor%}
+{% endfor%} -->
 
-  <!-- <div class="container" style="background: greenyellow;">
+  <div class="container" style="background: greenyellow;border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
       {% for post in blog_posts.items %}
         <div class="card">
             <div class="card-body">
@@ -48,7 +46,7 @@
             </div>
         </div>
       {% endfor %}
-  </div> -->
+  </div>
 
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
@@ -61,7 +59,7 @@
         {% endfor %}
     </ul>
   </nav>
-    <!-- Footer -->
+    
     <div class="row mt-5" style="background: greenyellow; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
         <hr>
         <div class="col-md-12">

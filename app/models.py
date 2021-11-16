@@ -71,7 +71,7 @@ class BlogPost(db.Model):
 
 
 class Comment(db.Model):
-    tablename = 'comments'
+    __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

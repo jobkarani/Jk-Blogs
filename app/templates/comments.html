@@ -1,3 +1,16 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock %}
+
+{% block content %}
 <body>
     {% for message in get_flashed_messages() %}
     <div class="alert alert-success">
@@ -15,10 +28,11 @@
 
     <p>{{ comment.comment }}</p>
     <div>
-        <a href="{{ url_for('main.delete_comment',id=comment.id)}}" class="text-danger" title="Delete Post">
+        <a href="{{ url_for('main.delete_comment',id=comment.id)}}" style="margin-left: 10px;;" class="text-danger" title="Delete Post">
             <small><i class="fa fa-trash"></i></small>
-        </a>
+        
     </div>
 
     {% endfor %}
 </body>
+{%endblock%}

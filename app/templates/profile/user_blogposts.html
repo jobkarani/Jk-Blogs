@@ -5,7 +5,7 @@
     <div class="jumbotron">
         <div class-align='center'>
           <h1>Welcome to {{user.username}}'s page</h1>
-          <img class-align='center' src="{{url_for('static',filename='photos/'+user.profile_pic)}}">
+          <img class-align='center' src="{{url_for('static',filename='photos/'+user.profile_pic)}}" width="30%" height="30%">
         </div>
     </div>
     {% for post in blog_posts.items %}

@@ -18,6 +18,7 @@
               <li class="user"><a href="{{url_for('main.account',uname=current_user.username)}}">{{current_user.username}}</a></li>
               <li><a href="{{url_for('main.addposts')}}" class="tag">Post Blogs</a></li>
               <li><a href="{{url_for('main.user_posts',username=current_user.username)}}" class="tag">View Blogs</a></li>
+              <li><a href="{{url_for('main.logout')}}">Log out</a></li>
               {% else %}
               <li><a href="{{url_for('main.register')}}">Create account</a></li>
               <li><a href="{{url_for('main.logout')}}">Log out</a></li>

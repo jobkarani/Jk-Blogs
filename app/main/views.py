@@ -66,10 +66,10 @@ def account():
         if form.picture.data:
             username = current_user.username
             pic = add_profile_pic(form.picture.data,username)
-            current_user.profile_pic = pic
 
         current_user.username =form.username.data
         current_user.email = form.email.data
+        current_user.post = form
         db.session.commit()
         flash('User account Succefully Updated!')
         return redirect(url_for('users.account'))
@@ -78,7 +78,7 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
 
-    profile_pic = url_for('static',filename='profile_pics/'+current_user.profile_pic)
+    profile_pic = url_for('static',filename='photos/'+current_user.profile_pic)
     return render_template('profile/account.html',profile_pic=profile_pic,form=form)
 
 @main.route("/<username>")
@@ -139,10 +139,18 @@ def delete_post(blog_post_id):
     if blog_post.author != current_user:
         abort(403)
 
-    db.session.delete(blog_post)
-    db.session.commit()
-    flash('Blog post Deleted')
-    return redirect(url_for('main.index'))
+        db.session.delete(blog_post)
+        db.session.commit()
+        flash('Blog post Deleted')
+        return redirect(url_for('main.blog_post',blog_post_id=blog_post_id))
+
+    elif request.method  == 'GET':
+
+        form.title.data = blog_post.title
+        form.post.data = blog_post.post
+
+    return render_template('index.html',title = 'Deleting',form=form)
+
 
 
 @main.route('/comment', methods=['GET', 'POST'])
