@@ -16,7 +16,7 @@ There are no bugs as of now :)
 * [Heroku](https://heroku.com)
 
 ## Setup/Installations Requirements
-* This is the live link to view the project <b><a href="">View Jk-Blogs</a></b>
+* This is the live link to view the project <b><a href="https://jkblogs.herokuapp.com/">View Jk-Blogs</a></b>
 
 ## Support and contact details
 If you have any suggestion or contributions about this project, you can reach out to me on:
