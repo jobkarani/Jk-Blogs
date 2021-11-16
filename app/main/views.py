@@ -1,5 +1,4 @@
 from flask import render_template, redirect, url_for, abort, flash, request
-from requests.api import post
 from . import main
 from flask_login import login_required, current_user,login_user,logout_user
 
