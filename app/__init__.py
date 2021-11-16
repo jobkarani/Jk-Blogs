@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_mail import Mail
+from datetime import datetime
 from flask_simplemde import SimpleMDE
 
 db = SQLAlchemy()

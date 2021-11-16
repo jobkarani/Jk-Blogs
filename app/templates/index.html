@@ -3,21 +3,22 @@
 {% block content %}
 
 {% block styles%}
-    {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 {% endblock %}
 
 
 
-  <div class="jumbotron" style="background: greenyellow; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
-      <div class="align-center">
-        <h1 style="text-align: center">Jk-Blogs</h1> 
-      </div>
+<div class="jumbotron"
+  style="background: chartreuse; border-style: solid;border: 2px solid white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+  <div class="align-center">
+    <h3 style="text-align: center">Jk-Blogs</h3>
   </div>
+</div>
 
-  <!-- {% for post in blog_posts.items %}
+<!-- {% for post in blog_posts.items %}
   <div class="container" >
     <div class="row">
         <div class="col-md-4">
@@ -34,42 +35,89 @@
  
 {% endfor%} -->
 
-  <div class="container" style="background: greenyellow;border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
-      {% for post in blog_posts.items %}
-        <div class="card">
-            <div class="card-body">
-                <h2><a class="card-title" href="{{url_for('main.blog_post',blog_post_id=post.id)}}">{{post.title | capitalize}}</a></h2>
-                <a href="{{url_for('main.user_posts',username=post.author.username)}}">Posted By: {{post.author.username | capitalize}}</a>
-            
-                <p>Published on: {{post.date.strftime('%d-%m-%y')}}</p>
-                <a class = "btn btn-primary" href="{{url_for('main.blog_post',blog_post_id=post.id)}}">Read Blog Post</a>
-            </div>
-        </div>
-      {% endfor %}
-  </div>
+<div class="container"
+  style="background: chartreuse;border-style: solid;border: 2px solid white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858); display: flex; justify-content: space-evenly;">
+  {% for post in blog_posts.items %}
+  <div class="card">
+    <div class="card-body">
+      <h2><a class="card-title" href="{{url_for('main.blog_post',blog_post_id=post.id)}}"
+          style="color: white;">{{post.title | capitalize}}</a></h2>
+      <a href="{{url_for('main.user_posts',username=post.author.username)}}" style="color: black;">Posted By:
+        {{post.author.username | capitalize}}</a>
 
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        {% for page_number in blog_posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
-           {% if blog_posts.page == page_num%}
-            <li class="page-item disabled"><a class="page-link" href="{{url_for('main.index',page=page_num)}}">{{page_num}}</a></li>
-            {% else %}
-            <li class="page-item"><a class="page-link" href="{{url_for('main.index',page=page_num)}}">{{page_num}}</a></li>
-           {% endif %}
-        {% endfor %}
-    </ul>
-  </nav>
-    
-    <div class="row mt-5" style="background: greenyellow; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
-        <hr>
-        <div class="col-md-12">
-            <footer>
-                <p style="text-align: center"> Copyright &copy;
-                    <script>document.write(new Date().getFullYear())</script> Jk-Blogs All Rights Reserved
-                </p>
-            </footer>
-        </div>
+      <p>Published on: {{post.date.strftime('%d-%m-%y')}}</p>
+      <a class="btn btn-primary" href="{{url_for('main.blog_post',blog_post_id=post.id)}}">Read Blog Post</a>
+      <a href="{{ url_for('main.blog_details', id = blog_id)}}"><button class="btn-success"><i class="fal fa-comment-smile"></i></button></a>
     </div>
+  </div>
+  {% endfor %}
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% for page_number in blog_posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
+    {% if blog_posts.page == page_num%}
+    <li class="page-item disabled"><a class="page-link" href="{{url_for('main.index',page=page_num)}}">{{page_num}}</a>
+    </li>
+    {% else %}
+    <li class="page-item"><a class="page-link" href="{{url_for('main.index',page=page_num)}}">{{page_num}}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+
+
+
+<div class="row mt-5"
+  style="background: green; border-style: solid;border: 2px solid white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+
+  <section class="footer">
+    <div class="container-fluid">
+      <section class="mt-5">
+        <div class="row text-center d-flex justify-content-center pt-5">
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="mailto: jobunyambu@gmail.com" target="_blank" class="text-white"><i class="fa fa-envelope fa-2x"
+                  aria-hidden="true"></i></a>
+            </h6>
+          </div>
+
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="http://wa.me/+254707367650" target="_blank" class="text-white"><i
+                  class="fab fa-whatsapp fa-2x"></i></i>
+              </a>
+            </h6>
+          </div>
+
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="https://twitter.com/ayub254" target="_blank" class="text-white"><i
+                  class="fab fa-twitter fa-2x"></i></i></a>
+            </h6>
+          </div>
+
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              <a href="https://www.facebook.com/jobkarani" target="_blank" class="text-white"><i
+                  class="fab fa-facebook fa-2x"></i></a>
+            </h6>
+          </div>
+
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <div class="col-md-12">
+    <footer>
+      <p style="text-align: center"><b>Copyright &copy;
+          <script>document.write(new Date().getFullYear())</script> Jk-Blogs All Rights Reserved
+        </b>
+      </p>
+    </footer>
+  </div>
+</div>
 </div>
 
 {% endblock %}

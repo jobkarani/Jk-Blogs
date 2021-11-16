@@ -7,7 +7,7 @@
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 {% endblock %}
 {% block content %}
-    <div class="jumbotron ayub" style="background: greenyellow;text-align:center; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+    <div class="jumbotron ayub" style="background: chartreuse;text-align:center; border-style: solid;border: 2px solid white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
         <div class-align='center'>
             <div class="card user">
                 <h1>Welcome to {{current_user.username | capitalize}}'s page</h1>
@@ -47,7 +47,17 @@
         </div>
     </div>
    
-    
+    <div class="row mt-5" style="background: green; border-style: solid;border: 2px solid white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+        
+        <div class="col-md-12">
+            <footer>
+                <p style="text-align: center"><b>Copyright &copy;
+                    <script>document.write(new Date().getFullYear())</script> Jk-Blogs All Rights Reserved </b> 
+                </p>
+            </footer>
+        </div>
+    </div>
+</div>
      
 </body>
  

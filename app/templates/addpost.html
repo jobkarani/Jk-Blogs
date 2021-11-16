@@ -1,9 +1,14 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf %}
-
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock %}
 
 {% block content %}
-<div class="container" style="background: greenyellow; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+<div class="container" style="background: chartreuse; border-style: solid;border: 2px solid white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
     <form class='form-group' method="POST">
         {{form.hidden_tag()}}
         <div class="form_group">
@@ -21,6 +26,18 @@
         </div>
 
     </form>
+</div>
+
+<div class="row mt-5" style="background: green; border-style: solid;border: 2px solid white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+        
+    <div class="col-md-12">
+        <footer>
+            <p style="text-align: center"><b>Copyright &copy;
+                <script>document.write(new Date().getFullYear())</script> Jk-Blogs All Rights Reserved </b> 
+            </p>
+        </footer>
+    </div>
+</div>
 </div>
 
 {% endblock%}

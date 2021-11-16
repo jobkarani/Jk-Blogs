@@ -1,23 +1,38 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock %}
 {% block content %}
-<div class="container" style="background: greenyellow; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
-    <div class="jumbotron">
+<div class="container" style="background: chartreuse;text-align: center; border-style: solid;border: white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+
+    <div class="jumbotron" >
         <div class-align='center'>
           <h1>Welcome to {{user.username}}'s page</h1>
           <img class-align='center' src="{{url_for('static',filename='photos/'+user.profile_pic)}}" width="30%" height="30%">
         </div>
     </div>
-    {% for post in blog_posts.items %}
-   <h2><a href="{{url_for('main.blog_post',blog_post_id=post.id)}}">{{post.title}}</a></h2>
-   Posted By: <a href="{{url_for('main.user_posts',username=post.author.username)}}">{{post.author.username}}</a>
-
-   <p class='text-muted'>Posted On: {{post.date.strftime("%d-%m-%Y")}}</p>
-   <br>
-   <p>{{post.text}}</p>
-   <br>
-
-{% endfor%}
+    <div class="card">
+    <div class="jumbotron" style="background: chartreuse; border-style: solid;border: white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+      
+      <div class="row">
+        <div class="col-md-4">
+      {% for post in blog_posts.items %}
+      <h2><a href="{{url_for('main.blog_post',blog_post_id=post.id)}}">{{post.title}}</a></h2>
+      Posted By: <a href="{{url_for('main.user_posts',username=post.author.username)}}">{{post.author.username}}</a>
+   
+      <p class='text-muted'>Posted On: {{post.date.strftime("%d-%m-%Y")}}</p>
+      <br>
+      <p>{{post.text}}</p>
+      <br>
+   {% endfor%}
+    </div>
+  </div>
+</div>
+</div>
 </div>
    
 <nav aria-label="Page navigation example">
@@ -31,5 +46,17 @@
         {% endfor %}
     </ul>
   </nav>
+
+  <div class="row mt-5" style="background: green; border-style: solid;border: 2px solid white;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+        
+    <div class="col-md-12">
+        <footer>
+            <p style="text-align: center"><b>Copyright &copy;
+                <script>document.write(new Date().getFullYear())</script> Jk-Blogs All Rights Reserved </b> 
+            </p>
+        </footer>
+    </div>
+</div>
+</div>
 
 {% endblock%}

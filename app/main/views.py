@@ -85,8 +85,8 @@ def account():
 def user_posts(username):
     page = request.args.get('page',1,type=int)
     user = User.query.filter_by(username=username).first_or_404()
-    blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page,per_page=3)
-    return render_template('profile/user_blogposts.html',blog_posts=blog_posts,user=user)
+    blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page,per_page=5)
+    return render_template('profile/user_blogposts.html',blog_posts=blog_posts,user=user,page=page)
 
 @main.route('/addpost',methods = ['GET', 'POST'])
 @login_required
@@ -139,19 +139,12 @@ def delete_post(blog_post_id):
     if blog_post.author != current_user:
         abort(403)
 
-        db.session.delete(blog_post)
-        db.session.commit()
-        flash('Blog post Deleted')
-        return redirect(url_for('main.blog_post',blog_post_id=blog_post_id))
+    db.session.delete(blog_post)
+    db.session.commit()
+    flash('Blog post Deleted')
+    return redirect(url_for('main.index',blog_post_id=blog_post_id))
 
-    elif request.method  == 'GET':
-
-        form.title.data = blog_post.title
-        form.post.data = blog_post.post
-
-    return render_template('index.html',title = 'Deleting',form=form)
-
-
+    
 
 @main.route('/comment', methods=['GET', 'POST'])
 @login_required
@@ -164,6 +157,26 @@ def add_comment():
         flash('Comment added successfully.')
         return redirect(url_for('.index'))
     return render_template('comments.html', form=form)
+
+@main.route('/blog/<id>', methods=['GET', 'POST'])
+@login_required
+def blog_details(id):
+    comments = Comment.query.filter_by(blog_id=id).all()
+    blogs = BlogPost.query.get(id)
+    if blogs is None:
+        abort(404)
+    form = CommentsForm()
+    if form.validate_on_submit():
+        comment = Comment(
+            comment=form.comment.data,
+            blog_id=id,
+            user_id=current_user.id
+        )
+        db.session.add(comment)
+        db.session.commit()
+        form.comment.data = ''
+        flash('Your comment has been posted successfully!')
+    return render_template('comments.html', blog=blogs, comment=comments, comments_form=form)
 
 @main.route('/comment/<int:id>/delete', methods=['GET', 'POST'])
 @login_required

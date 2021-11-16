@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
+    
     username = db.Column(db.String(255),unique=True,index=True)
     email = db.Column(db.String(255), unique=True, index=True)
     hashed_pass = db.Column(db.String(255))
@@ -64,6 +65,7 @@ class BlogPost(db.Model):
         self.title = title
         self.post = post
         self.user_id =user_id
+        
 
 
     def __repr__(self):
