@@ -4,15 +4,16 @@ from flask_login import login_required, current_user,login_user,logout_user
 
 from app.models import User, BlogPost,Comment,Quote
 from .. import db
+from ..requests import get_quote
 from .forms import UpdateUserForm,LoginForm,RegistrationForm,PostForm,CommentsForm
 from .picture_handler import add_profile_pic
 
 @main.route('/')
 def index():
-    
+    quote = get_quote()
     page = request.args.get('page',1,type=int)
     blog_posts = BlogPost.query.order_by(BlogPost.date.desc()).paginate(page=page,per_page=4)
-    return render_template('index.html', blog_posts=blog_posts)
+    return render_template('index.html', blog_posts=blog_posts, quote=quote)
 
 
 #register

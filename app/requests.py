@@ -9,3 +9,6 @@ def get_quote():
         quote = response.json()
         print(quote)
         return quote
+
+
+        # http://quotes.stormconsultancy.co.uk/random.json
