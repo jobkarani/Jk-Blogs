@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<div class="container">
+<div class="container" style="background: greenyellow; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
     <form class='form-group' method="POST">
         {{form.hidden_tag()}}
         <div class="form_group">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="form_group">
-            {{form.submit(class="btn btn-outline-info")}} 
+            {{form.submit(class="btn btn-info")}} 
         </div>
 
     </form>

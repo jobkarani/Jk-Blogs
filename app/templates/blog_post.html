@@ -3,11 +3,12 @@
 
 
 {% block content %}
-<div class="jumbotron">
-    <h1>{{post.title}}</h1>
-    <h2>Written by: {{post.author,username}}</h2>
-    <h3>Published: {{post.date.strftime('%d-%m-%Y')}}</h3>
-    <p>{{post.text}}</p>
+<div class="jumbotron" style="background: greenyellow;border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+    <h1>{{post.title | capitalize}}</h1>
+    <p> <b> {{post.post | capitalize}}</b></p>
+    <h5>Written by: {{post.author.username | capitalize}}</h5>
+    <h5>Published: {{post.date.strftime('%d-%m-%Y')}}</h5>
+    
 
     {% if post.author == current_user%}
     <div>
@@ -16,7 +17,7 @@
     {% endif%}
 </div>
 
-<div class="modal" tabindex="-1" id="del_modal">
+<div class="modal" tabindex="-1" id="del_modal" style="background: greenyellow;border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

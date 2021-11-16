@@ -1,10 +1,10 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
-<div class="container">
+<div class="container" style="background: greenyellow; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
     <div class="jumbotron">
         <div class-align='center'>
-          <h1>Welcome to {{user.username}}'s page.</h1>
+          <h1>Welcome to {{user.username}}'s page</h1>
           <img class-align='center' src="{{url_for('static',filename='photos/'+user.profile_pic)}}">
         </div>
     </div>

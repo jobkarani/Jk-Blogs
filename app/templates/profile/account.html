@@ -1,36 +1,51 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock %}
 {% block content %}
-   <div class="jumbotron">
-       <div class-align='center'>
-         <h1>Welcome to {{current_user.username}}'s page.</h1>
-         <img class-align='center' src="{{url_for('static',filename='photos/'+current_user.profile_pic)}}" alt="">
-       </div>
-   </div>
-
-   <div class="container">
-    <form method="POST" action="" enctype="multipart/form-data" >
-        {{form.hidden_tag()}}
-        <div class="form_group">
-            {{form.username.label(class="form-label")}}
-            {{form.username(class="form-control")}} 
+    <div class="jumbotron ayub" style="background: greenyellow;text-align:center; border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);">
+        <div class-align='center'>
+            <div class="card user">
+                <h1>Welcome to {{current_user.username | capitalize}}'s page</h1>
+                <img class-align='center' src="{{url_for('static',filename='photos/'+current_user.profile_pic)}}"  alt="" width=30% height="30%">
+            </div>
+          
         </div>
-
-        <div class="form_group">
-            {{form.email.label(class="form-label")}}
-            {{form.email(class="form-control")}} 
-        </div>
-
-        <div class="form_group">
-            {{form.picture.label(class="form-label")}}
-            {{form.picture(class="form-control")}} 
-        </div>
-
-        <div class="form_group">
-            {{form.submit(class="btn btn-primary mb-3")}} 
-        </div>
-
-    </form>
-   </div>
-
+    </div>
+ 
+    <div class="container center" >
+        <div class="row ">
+            <div class="col-md-6">
+                <form method="POST" action="" enctype="multipart/form-data" style="background: greenyellow; text-align: center;border-style: solid;border: 2px solid black;padding: 10px;border-radius: 25px; filter: drop-shadow(2px 4px 8px #585858);"  >
+                    {{form.hidden_tag()}}
+                    <div class="form_group">
+                        {{form.username.label(class="form-label")}}
+                        {{form.username(class="form-control")}} 
+                    </div>
+            
+                    <div class="form_group">
+                        {{form.email.label(class="form-label")}}
+                        {{form.email(class="form-control")}} 
+                    </div>
+            
+                    <div class="form_group">
+                        {{form.picture.label(class="form-label")}}
+                        {{form.picture(class="form-control")}} 
+                    </div>
+            
+                    <div class="form_group">
+                        {{form.submit(class="btn btn-primary mb-3")}} 
+                    </div>
+            
+                </form>
+               </div>
+            </div>
+            </div>
+            
+     
+ 
 {% endblock%}
