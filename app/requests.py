@@ -1,5 +1,7 @@
-import requests
-from .models import Quote
+import urllib.request
+import json
+from .models import Quotes
+
 
 
 # function to get quote from API
