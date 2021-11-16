@@ -1,4 +1,4 @@
-import urllib.request
+import urllib.requests
 import json
 from .models import Quote
 
@@ -6,7 +6,7 @@ from .models import Quote
 
 # function to get quote from API
 def get_quote():
-    response = request.get('http://quotes.stormconsultancy.co.uk/random.json')
+    response = requests.get('http://quotes.stormconsultancy.co.uk/random.json')
     if response.status_code == 200:
         quote = response.json()
         print(quote)
